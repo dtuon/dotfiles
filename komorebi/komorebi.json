@@ -1,0 +1,117 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.37/schema.json",
+  "app_specific_configuration_path": "$Env:USERPROFILE/applications.json",
+  "window_hiding_behaviour": "Cloak",
+  "cross_monitor_move_behaviour": "Insert",
+  "default_workspace_padding": 10,
+  "default_container_padding": 10,
+  "border": true,
+  "border_width": 10,
+  "border_offset": -1,
+  "theme": {
+    "palette": "Base16",
+    "name": "AyuDark",
+    "single_border": "Base06",
+    "monocle_border": "Base08",
+    "stack_border": "Base0E",
+    "floating_border": "Base0D",
+    "unfocused_border": "Base03"
+  },
+  "monitors": [
+    {
+      "workspaces": [
+        {
+          "name": "I",
+          "layout": "Grid"
+        },
+        {
+          "name": "II",
+          "layout": "Grid"
+        },
+        {
+          "name": "III",
+          "layout": "Grid"
+        },
+        {
+          "name": "IV",
+          "layout": "Grid"
+        },
+        {
+          "name": "V",
+          "layout": "Grid"
+        },
+        {
+          "name": "VI",
+          "layout": "Grid"
+        },
+        {
+          "name": "VII",
+          "layout": "Grid"
+        },
+        {
+          "name": "VIII",
+          "layout": "Grid"
+        },
+        {
+          "name": "IX",
+          "layout": "Grid",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "ms-teams.exe",
+              "matching_strategy": "Equals"
+            },
+            {
+              "kind": "Exe",
+              "id": "OUTLOOK.EXE",
+              "matching_strategy": "Equals"
+            }
+          ]
+        },
+        {
+          "name": "X",
+          "layout": "Grid",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Spotify.exe",
+              "matching_strategy": "Equals"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "floating_applications": [
+    {
+      "kind": "Exe",
+      "id": "PRIMER.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "KeyGenLicenseCreator.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "KeyGenLicenseManager.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "LicenseTracker.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "PRIMER8Setup.exe",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "hhw.exe",
+      "matching_strategy": "Equals"
+    }
+  ]
+}
