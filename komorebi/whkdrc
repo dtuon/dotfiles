@@ -48,6 +48,7 @@ alt + shift + oem_minus : komorebic resize-axis vertical decrease
 # Manipulate windows
 alt + t                 : komorebic toggle-float
 alt + shift + f         : komorebic toggle-monocle
+alt + c                 : & "$Env:KOMOREBI_CONFIG_HOME\toggle-reading-mode.ps1" # centered reading column
 
 # Window manager options
 alt + shift + r         : komorebic retile

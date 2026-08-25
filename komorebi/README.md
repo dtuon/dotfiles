@@ -3,6 +3,13 @@
 Config for [komorebi](https://github.com/LGUG2Z/komorebi), its bar, and the `whkd` hotkey
 daemon.
 
+| File | What it is |
+|---|---|
+| `komorebi.json` | Window manager config: Grid layout on all 10 workspaces, padding, border, theme |
+| `komorebi.bar.json` | Status bar widgets |
+| `whkdrc` | Hotkeys. `whkd` is the active hotkey daemon (komorebi is started with `--whkd`) |
+| `toggle-reading-mode.ps1` | `alt + c` toggle, see below |
+
 ## How it's wired up
 
 Two user-scope env vars point at *this folder*:
@@ -35,19 +42,30 @@ It is the *application-specific configuration* — a ~62KB community-maintained 
 per-app workarounds (which windows need force-managing, which have invisible borders, etc.)
 shipped by the komorebi project and pulled down wholesale by `komorebic quickstart` /
 `komorebic fetch-app-specific-configuration`. It's generated, not hand-edited, and it
-churns on every upstream refresh. Committing it would bury the diffs of the three files
-here that actually get edited by hand.
+churns on every upstream refresh. Committing it would bury the diffs of the files here
+that actually get edited by hand.
 
 If it goes missing, re-fetch it rather than looking for it in git history.
 
-## Other stray komorebi files in `$USERPROFILE`
+## Reading mode (`alt + c`)
 
-`~/komorebi.ahk` — the AutoHotkey hotkey script from komorebi's quickstart. Not in use:
-`whkd` is the active hotkey daemon (see `whkdrc`), komorebi is started with `--whkd` rather
-than `--ahk`, and the only running AutoHotkey process is an unrelated personal script,
-`dales_hotkeys.ahk`, in the Startup folder. Left in place, unversioned.
+`toggle-reading-mode.ps1` shrinks the focused workspace's tiling area to a centered column
+(60% of the screen, gutters either side) and toggles it back off. Long terminal output — a
+full-screen Claude Code session in particular — is much easier to read at ~1150px than at
+1920px.
 
-Note: while the config home was `$USERPROFILE`, `komorebic check` reported "Found
-komorebi.ahk; this file will be autoloaded by komorebi" — that only takes effect if komorebi
-is started with the ahk flag, so it never was. Now that the config home has moved, the
-message is gone.
+It works by flipping komorebi's per-workspace work area offset:
+
+```
+komorebic workspace-work-area-offset <monitor> <workspace> <pad> 0 <pad*2> 0
+```
+
+`right` must be `left * 2` — that is komorebi's convention for "keep the padding symmetric",
+not a right-hand gap in its own right. Setting all four to `0` restores full width.
+
+The one knob is `$Fraction` (default `0.6`) at the top of the script. The monitor width is
+read from `komorebic state` at runtime, so it adapts to whatever display is attached.
+
+Scope: per workspace, not per window count. It stays on for that workspace until toggled off,
+and applies even if you open a second window (both then tile inside the narrow column).
+`komorebic reload-configuration` clears it.
