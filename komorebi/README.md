@@ -42,7 +42,12 @@ If it goes missing, re-fetch it rather than looking for it in git history.
 
 ## Other stray komorebi files in `$USERPROFILE`
 
-`~/komorebi.ahk` — the AutoHotkey hotkey script from komorebi's quickstart. **Inert**:
-`whkd` is the active hotkey daemon (see `whkdrc`), and the AutoHotkey process that is
-running is a separate personal script, `dales_hotkeys.ahk`, in the Startup folder. Left in
-place, unversioned.
+`~/komorebi.ahk` — the AutoHotkey hotkey script from komorebi's quickstart. Not in use:
+`whkd` is the active hotkey daemon (see `whkdrc`), komorebi is started with `--whkd` rather
+than `--ahk`, and the only running AutoHotkey process is an unrelated personal script,
+`dales_hotkeys.ahk`, in the Startup folder. Left in place, unversioned.
+
+Note: while the config home was `$USERPROFILE`, `komorebic check` reported "Found
+komorebi.ahk; this file will be autoloaded by komorebi" — that only takes effect if komorebi
+is started with the ahk flag, so it never was. Now that the config home has moved, the
+message is gone.
