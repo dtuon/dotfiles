@@ -54,6 +54,13 @@ If it goes missing, re-fetch it rather than looking for it in git history.
 full-screen Claude Code session in particular — is much easier to read at ~1150px than at
 1920px.
 
+It also switches the workspace layout to `rows` while on, since the narrow column is
+effectively a vertical monitor, and restores the previous layout when toggled off. The
+previous layout is remembered per monitor/workspace in
+`%LOCALAPPDATA%\komorebi\reading-mode-layouts.json` (runtime state, not config — hence
+outside this repo). If nothing was recorded, it restores `grid`. Custom (non-named) layouts
+can't be set from the CLI, so they aren't recorded and fall back to `grid` too.
+
 It works by flipping komorebi's per-workspace work area offset:
 
 ```
@@ -63,7 +70,8 @@ komorebic workspace-work-area-offset <monitor> <workspace> <pad> 0 <pad*2> 0
 `right` must be `left * 2` — that is komorebi's convention for "keep the padding symmetric",
 not a right-hand gap in its own right. Setting all four to `0` restores full width.
 
-The one knob is `$Fraction` (default `0.6`) at the top of the script. The monitor width is
+The knobs are `$Fraction` (default `0.6`), `$ReadingLayout` (default `rows`) and
+`$FallbackLayout` (default `grid`) at the top of the script. The monitor width is
 read from `komorebic state` at runtime, so it adapts to whatever display is attached.
 
 Scope: per workspace, not per window count. It stays on for that workspace until toggled off,
