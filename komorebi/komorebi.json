@@ -112,6 +112,11 @@
       "kind": "Exe",
       "id": "hhw.exe",
       "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "eazfuscator.net-assistant.exe",
+      "matching_strategy": "Equals"
     }
   ]
 }
