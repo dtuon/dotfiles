@@ -10,6 +10,9 @@ symlinks, so nothing needs admin rights or a git repo sitting in `$USERPROFILE`.
 
 Add future tools (wezterm, git, ...) as sibling folders.
 
+One other env var is *not* about wiring config: `TEMPDOCS` names a per-machine scratch
+notes folder outside this repo, read only by `nvim/lua/notes.lua`. See `nvim/README.md`.
+
 ## XDG_CONFIG_HOME
 
 `XDG_CONFIG_HOME` points at this repo root, so neovim reads `nvim/`. Plugin and state
