@@ -15,7 +15,7 @@ daemon.
 Two user-scope env vars point at *this folder*:
 
 ```powershell
-$d = 'C:\Users\DaleEuinton\not_dropbox\personal_repos\dotfiles\komorebi'
+$d = '<path to this repo>\komorebi'
 [Environment]::SetEnvironmentVariable('KOMOREBI_CONFIG_HOME', $d, 'User')
 [Environment]::SetEnvironmentVariable('WHKD_CONFIG_HOME',     $d, 'User')
 ```
