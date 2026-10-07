@@ -16,4 +16,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("options")
+require("notes") -- Requires the mapleader key so put after options
 require("lazy").setup("plugins")
