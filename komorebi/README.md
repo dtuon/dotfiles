@@ -33,19 +33,27 @@ Env vars are only visible to processes started *after* they were set, so restart
 (`komorebic stop --whkd` then `komorebic start --whkd`) from a fresh shell after changing
 them.
 
-## Why `applications.json` is not in this repo
+## Why `applications.json` is not versioned here
 
-`komorebi.json` references it as `$Env:USERPROFILE/applications.json`, i.e. it lives at
-`C:\Users\DaleEuinton\applications.json`, deliberately outside this repo.
+`komorebi.json` references it as `$Env:KOMOREBI_CONFIG_HOME/applications.json`, so it sits
+in *this folder* — but it is gitignored, not committed.
 
-It is the *application-specific configuration* — a ~62KB community-maintained catalogue of
+It is the *application-specific configuration* — a ~68KB community-maintained catalogue of
 per-app workarounds (which windows need force-managing, which have invisible borders, etc.)
 shipped by the komorebi project and pulled down wholesale by `komorebic quickstart` /
 `komorebic fetch-app-specific-configuration`. It's generated, not hand-edited, and it
 churns on every upstream refresh. Committing it would bury the diffs of the files here
 that actually get edited by hand.
 
-If it goes missing, re-fetch it rather than looking for it in git history.
+Fetch it on a new machine with:
+
+```powershell
+komorebic fetch-app-specific-configuration
+Move-Item ~\applications.json $env:KOMOREBI_CONFIG_HOME\applications.json -Force
+```
+
+`komorebic` writes it to `$Env:USERPROFILE`, hence the move. If it goes missing, re-fetch
+rather than looking for it in git history.
 
 ## Reading mode (`alt + c`)
 

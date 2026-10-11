@@ -15,15 +15,17 @@ Plugin and state data stay outside the repo in `%LOCALAPPDATA%\nvim-data`.
 
 ## TEMPDOCS
 
-`lua/notes.lua` writes scratch notes to the folder named by the `TEMPDOCS` user env var:
+`lua/notes.lua` writes scratch notes to the folder named by the `TEMPDOCS` user env var.
+It is set, along with every other path, by `bootstrap\1-env.ps1` — see
+[bootstrap/README.md](../bootstrap/README.md). To set it by hand:
 
 ```powershell
 [Environment]::SetEnvironmentVariable('TEMPDOCS', '<path to notes folder>', 'User')
 ```
 
-It is deliberately *not* in this repo — the notes are per-machine working scratch, synced
-by Dropbox rather than versioned here. The current value points into
-`PRIMER-e Dropbox\...\workspace\temp`.
+The folder itself is deliberately *not* in this repo — the notes are per-machine working
+scratch, synced by Dropbox rather than versioned here. The value for a given machine comes
+from `WORKSPACE\temp`, derived in `bootstrap/local.ps1`.
 
 If the var is unset, notes fall back to `%LOCALAPPDATA%\nvim-data\tempdocs`, so nothing
 breaks on a fresh machine — notes just land somewhere unsynced until it's set. Nothing

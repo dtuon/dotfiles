@@ -1,29 +1,53 @@
 # dotfiles
 
-Personal config, one subfolder per tool. Tools are pointed here via env vars rather than
-symlinks, so nothing needs admin rights or a git repo sitting in `$USERPROFILE`.
+Personal config and new-machine setup. One subfolder per tool. Tools are pointed
+here via env vars rather than symlinks, so nothing needs admin rights or a git
+repo sitting in `$USERPROFILE`.
+
+**Setting up a new machine? Start at [SETUP.md](SETUP.md).**
 
 | Folder | Tool | Wired up by |
 |---|---|---|
-| `komorebi/` | komorebi + komorebi-bar + whkd | `KOMOREBI_CONFIG_HOME`, `WHKD_CONFIG_HOME` |
+| `bootstrap/` | the setup scripts themselves | run in number order |
+| `powershell/` | pwsh profile + standalone utils | stub at `$PROFILE` reading `DOTFILES` |
 | `nvim/` | neovim | `XDG_CONFIG_HOME` |
+| `komorebi/` | komorebi + komorebi-bar + whkd | `KOMOREBI_CONFIG_HOME`, `WHKD_CONFIG_HOME` |
+| `autohotkeys/` | AutoHotkey v2 | copied into the Startup folder |
+| `lazygit/` | lazygit | default location via `XDG_CONFIG_HOME` |
+| `gh/` | GitHub CLI | default location |
+| `github-copilot/` | Copilot | default location |
 
-Add future tools (wezterm, git, ...) as sibling folders.
+Add future tools as sibling folders.
 
-One other env var is *not* about wiring config: `TEMPDOCS` names a per-machine scratch
-notes folder outside this repo, read only by `nvim/lua/notes.lua`. See `nvim/README.md`.
+| Doc | What's in it |
+|---|---|
+| [SETUP.md](SETUP.md) | Ordered new-machine checklist |
+| [MANUAL.md](MANUAL.md) | Steps that can't be scripted |
+| [TODO.md](TODO.md) | Ideas not built yet |
+| [bootstrap/README.md](bootstrap/README.md) | How the env-var scheme works |
 
-## XDG_CONFIG_HOME
+## No absolute paths
 
-`XDG_CONFIG_HOME` points at this repo root, so neovim reads `nvim/`. Plugin and state
-data stay outside the repo in `%LOCALAPPDATA%\nvim-data`.
+Every path in this repo comes from an env var, so the same commit works on a
+machine with a different Windows user name, or where Dropbox sits
+somewhere else. Per-machine values live in one gitignored file,
+`bootstrap/local.ps1`; everything else is derived from it.
 
-The variable is not nvim-specific: any XDG-aware tool will look for its config in
-`<repo>\<toolname>`. That is intentional here, but it means a newly installed tool may
-silently relocate its config into this repo (and write state files worth gitignoring).
+`bootstrap/check.ps1` enforces this — it fails if any tracked file contains a
+drive-letter path. Full explanation, and the list of env vars, in
+[bootstrap/README.md](bootstrap/README.md).
 
-Set on a new machine with:
+```powershell
+.\bootstrap\check.ps1   # verify this machine, and lint the repo
+```
 
-    [Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', '<path to this repo>', 'User')
+## Not in this repo
 
-Only processes started afterwards see it, so restart terminals and editors.
+- **Secrets.** `gh/hosts.yml` and `github-copilot/auth.db*` are gitignored. Sign
+  in with `gh auth login` on a new machine rather than copying them.
+- **Generated config.** `komorebi/applications.json` is a large, churning,
+  upstream-maintained catalogue — re-fetch it, see `komorebi/README.md`.
+- **Plugin and runtime state.** Neovim's lives in `%LOCALAPPDATA%\nvim-data`,
+  komorebi's reading-mode state in `%LOCALAPPDATA%\komorebi`.
+- **Scratch notes.** `TEMPDOCS` names a per-machine notes folder, synced by
+  Dropbox rather than versioned here. See `nvim/README.md`.

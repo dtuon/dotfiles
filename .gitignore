@@ -1,0 +1,12 @@
+# Per-machine config. Copy bootstrap/local.example.ps1 -> bootstrap/local.ps1 and fill in.
+bootstrap/local.ps1
+
+# Credentials and auth state. Never commit these.
+github-copilot/auth.db
+github-copilot/auth.db-shm
+github-copilot/auth.db-wal
+gh/hosts.yml
+
+# Generated, upstream-maintained app catalogue. Re-fetch, don't version.
+# (see komorebi/README.md)
+komorebi/applications.json
