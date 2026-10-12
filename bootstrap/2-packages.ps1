@@ -49,6 +49,7 @@ $packages = @(
     @{ Group = 'dev'; Id = 'tree-sitter.tree-sitter-cli';  Name = 'tree-sitter CLI'; Why = 'Needed by nvim-treesitter to build grammars from source.' }
     @{ Group = 'dev'; Id = 'BrechtSanders.WinLibs.POSIX.UCRT'; Name = 'WinLibs GCC'; Why = 'A C compiler on PATH. Also required by nvim-treesitter.' }
     @{ Group = 'dev'; Id = 'JohnMacFarlane.Pandoc';        Name = 'Pandoc';          Why = 'Document conversion, mostly markdown -> docx/pdf.' }
+    @{ Group = 'dev'; Id = 'jqlang.jq';                    Name = 'jq';              Why = 'Command-line JSON processor.' }
 
     # --- windowing: the tiling setup. Config in komorebi/ and autohotkeys/. ---
     @{ Group = 'windowing'; Id = 'LGUG2Z.komorebi';        Name = 'komorebi';   Why = 'Tiling WM. Reads KOMOREBI_CONFIG_HOME.' }
