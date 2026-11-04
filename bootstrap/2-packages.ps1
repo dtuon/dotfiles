@@ -50,6 +50,7 @@ $packages = @(
     @{ Group = 'dev'; Id = 'BrechtSanders.WinLibs.POSIX.UCRT'; Name = 'WinLibs GCC'; Why = 'A C compiler on PATH. Also required by nvim-treesitter.' }
     @{ Group = 'dev'; Id = 'JohnMacFarlane.Pandoc';        Name = 'Pandoc';          Why = 'Document conversion, mostly markdown -> docx/pdf.' }
     @{ Group = 'dev'; Id = 'jqlang.jq';                    Name = 'jq';              Why = 'Command-line JSON processor.' }
+    @{ Group = 'dev'; Id = 'Microsoft.AzureCLI';           Name = 'Azure CLI';       Why = 'Running Azure commands locally.' }
 
     # --- windowing: the tiling setup. Config in komorebi/ and autohotkeys/. ---
     @{ Group = 'windowing'; Id = 'LGUG2Z.komorebi';        Name = 'komorebi';   Why = 'Tiling WM. Reads KOMOREBI_CONFIG_HOME.' }
