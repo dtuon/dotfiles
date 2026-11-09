@@ -51,6 +51,7 @@ $packages = @(
     @{ Group = 'dev'; Id = 'JohnMacFarlane.Pandoc';        Name = 'Pandoc';          Why = 'Document conversion, mostly markdown -> docx/pdf.' }
     @{ Group = 'dev'; Id = 'jqlang.jq';                    Name = 'jq';              Why = 'Command-line JSON processor.' }
     @{ Group = 'dev'; Id = 'Microsoft.AzureCLI';           Name = 'Azure CLI';       Why = 'Running Azure commands locally.' }
+    @{ Group = 'dev'; Id = 'Docker.DockerDesktop';         Name = 'Docker Desktop';  Why = 'Containers, and the docker CLI on PATH.' }
 
     # --- windowing: the tiling setup. Config in komorebi/ and autohotkeys/. ---
     @{ Group = 'windowing'; Id = 'LGUG2Z.komorebi';        Name = 'komorebi';   Why = 'Tiling WM. Reads KOMOREBI_CONFIG_HOME.' }
