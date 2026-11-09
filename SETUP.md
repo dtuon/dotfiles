@@ -70,9 +70,13 @@ In this most recent setup, I chose `bedrock` for things that are not cloud synce
 
 ## 6. Windows settings
 
+- [ ] **Run this one in an admin terminal** if Docker Desktop was installed in
+      step 4 — the WSL2 install it needs is the only part of the bootstrap that
+      requires elevation. Without admin the script warns and skips just that bit.
 - [ ] `.\bootstrap\4-windows.ps1 -WhatIf` then without `-WhatIf`
 - [ ] Restart Explorer so its settings apply:
       `Stop-Process -Name explorer -Force`
+- [ ] If it installed WSL, reboot before expecting Docker Desktop to start.
 
 ## 7. Per-tool setup
 

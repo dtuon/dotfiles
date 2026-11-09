@@ -31,3 +31,5 @@ easier to click, or the registry keys move in a future Windows build.
 - Dropbox has finished its initial sync before relying on `DOCS` / `TEMPDOCS`
 - Printers / scanners
 - Outlook and Teams signed in (both are floated in `komorebi.json`)
+- Docker Desktop starts, and `docker run hello-world` works. Needs the WSL2
+  install from `bootstrap\4-windows.ps1`, and a reboot after it.

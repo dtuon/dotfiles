@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Windows Explorer and shell tweaks.
+    Windows Explorer and shell tweaks, plus the WSL2 install Docker needs.
 .DESCRIPTION
     The handful of OS settings worth scripting. Everything that can only be done
     by clicking is in MANUAL.md instead.
@@ -24,7 +24,8 @@ $settings = [ordered]@{
 }
 
 Write-Host "`nExplorer settings" -ForegroundColor Cyan
-$changed = $false
+$changed      = $false
+$rebootNeeded = $false
 
 foreach ($name in $settings.Keys) {
     $want, $desc = $settings[$name]
@@ -50,7 +51,45 @@ if (Test-Path $hideScript) {
     Write-Warning "Missing $hideScript"
 }
 
+# WSL2. Not a winget package, so it cannot live in 2-packages.ps1 with the
+# Docker Desktop entry that needs it. Docker installs fine without WSL -- it
+# just will not run until this is done and the machine has rebooted.
+Write-Host "`nWSL2 (required by Docker Desktop)" -ForegroundColor Cyan
+
+$wslReady = $false
+if (Get-Command wsl -ErrorAction SilentlyContinue) {
+    wsl --status *> $null
+    $wslReady = ($LASTEXITCODE -eq 0)
+}
+
+$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$isAdmin  = ([Security.Principal.WindowsPrincipal]$identity).IsInRole(
+    [Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if ($wslReady) {
+    Write-Host "  = WSL already installed" -ForegroundColor DarkGray
+} elseif (-not $isAdmin) {
+    # Everything else in this script is HKCU, so don't force elevation on the
+    # whole run just for this. Say what is missing and carry on.
+    Write-Warning "WSL is not installed, and 'wsl --install' needs an elevated shell. Run this in an admin terminal, or by hand: wsl --install --no-launch"
+} elseif ($PSCmdlet.ShouldProcess('WSL2', 'wsl --install --no-launch')) {
+    # --no-launch: Docker needs the WSL2 platform, not a distro. Without it the
+    # default Ubuntu install stops to prompt for a username.
+    wsl --install --no-launch
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "  + WSL2 installed" -ForegroundColor Green
+        $rebootNeeded = $true
+    } else {
+        Write-Host "  FAILED (exit $LASTEXITCODE)" -ForegroundColor Red
+    }
+}
+
 if ($changed) {
     Write-Host "`nExplorer must restart for its settings to apply:" -ForegroundColor Yellow
     Write-Host "  Stop-Process -Name explorer -Force`n" -ForegroundColor DarkGray
+}
+
+if ($rebootNeeded) {
+    Write-Host "`nWSL needs a reboot before Docker Desktop will start." -ForegroundColor Yellow
+    Write-Host "  After rebooting: docker run hello-world`n" -ForegroundColor DarkGray
 }

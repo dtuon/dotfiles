@@ -12,7 +12,7 @@ can just be re-run.
 | `1-env.ps1` | Writes every path as a user-scope env var. Run this first. |
 | `2-packages.ps1` | `winget install` the package manifest. |
 | `3-profile.ps1` | Installs a stub at `$PROFILE` pointing at `powershell\profile.ps1`. |
-| `4-windows.ps1` | Explorer settings, hides dotted items in the home directory. |
+| `4-windows.ps1` | Explorer settings, hides dotted items in the home directory, installs WSL2. |
 | `check.ps1` | Verifies the wiring, and lints the repo for hardcoded paths. |
 
 ## How paths stay machine-independent
